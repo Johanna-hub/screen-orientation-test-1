@@ -14,16 +14,26 @@ const eventChange = new Promise(function(resolve, reject) {
 });
 
 const lockCheck = new Promise(function(resolve, reject) {
-    screen.orientation.lock("landscape");
-    resolve(screen.orientation.type);
-})
+  screen.orientation.lock("landscape");
+  resolve(screen.orientation.type);
+});
+
+function responseCheck(response) {
+  if (response === undefined) {
+    console.log(`Lock resolved first`);
+  } else if (response === change) {
+    console.log(`Event fired and event is ${response}`);
+  } else {
+    console.log(`${response}`);
+  }
+}
 
 function orderCheck() {
   Promise.race([screen.orientation.lock("landscape"), eventChange])
-    .then(response => console.log(`${response}`))
+    .then(response => responseCheck(response))
     .catch(error => console.log(`error is ${error}`));
 }
 
-function eventCheck() {
-  eventChange.then(response => console.log(response));
-}
+// function eventCheck() {
+//   eventChange.then(response => console.log(response));
+// }

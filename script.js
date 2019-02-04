@@ -15,8 +15,8 @@ const eventChange = new Promise(function(resolve, reject) {
 
 function orderCheck() {
   Promise.race([screen.orientation.lock("landscape"), eventChange])
-    .then(response => console.log(response))
-    .catch(error => console.log(error));
+    .then(response => console.log(`response is ${response}`))
+    .catch(error => console.log(`error is ${error}`));
 }
 
 function eventCheck() {

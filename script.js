@@ -13,9 +13,14 @@ const eventChange = new Promise(function(resolve, reject) {
   });
 });
 
+const lockCheck = new Promise(function(resolve, reject) {
+    screen.orientation.lock("landscape");
+    resolve(screen.orientation.type);
+})
+
 function orderCheck() {
   Promise.race([screen.orientation.lock("landscape"), eventChange])
-    .then(response => console.log(`response is ${response}`))
+    .then(response => console.log(`${response}`))
     .catch(error => console.log(`error is ${error}`));
 }
 

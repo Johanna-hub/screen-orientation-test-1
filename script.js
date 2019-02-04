@@ -21,7 +21,7 @@ const lockCheck = new Promise(function(resolve, reject) {
 function responseCheck(response) {
   if (response === undefined) {
     console.log(`Lock resolved first`);
-  } else if (response === change) {
+  } else if (response === "change") {
     console.log(`Event fired and event is ${response}`);
   } else {
     console.log(`${response}`);

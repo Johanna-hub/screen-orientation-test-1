@@ -6,15 +6,19 @@
 // screen.orientation.addEventListener("change", (e) => {
 //     show(e);
 // })
-const screenLock =  screen.orientation.lock('portrait');
 
 const eventChange = new Promise(function(resolve, reject) {
-    screen.orientation.addEventListener("change", () => {
-        resolve();
-    })
+  screen.orientation.addEventListener("change", e => {
+    resolve(e.type);
+  });
 });
 
 function orderCheck() {
+  Promise.race([screen.orientation.lock("landscape"), eventChange])
+    .then(response => console.log(response))
+    .catch(error => console.log(error));
+}
 
-Promise.race([screenLock, eventChange]).then(response => console.log(response)).catch(error => console.log(error))
+function eventCheck() {
+  eventChange.then(response => console.log(response));
 }

@@ -95,23 +95,23 @@ async function lockTest() {
   await document.documentElement.requestFullscreen();
   for (const orientation of orientations) {
     const promiseToChange = screen.orientation.lock(orientation);
-    console.log(promiseToChange instanceof Promise);
+    console.log(`instance of promise?: ${promiseToChange instanceof Promise}`);
     await promiseToChange;
     const type = screen.orientation.type;
     switch (orientation) {
       case "any":
         break;
       case "natural":
-        console.log(type, "should be portrait-primary or landscape-primary");
+        console.log(`${type}should be portrait-primary or landscape-primary`);
         break;
       case "portrait":
-        console.log(type, "should be portrait-primary or portrait-secondary");
+        console.log(`${type} should be portrait-primary or portrait-secondary`);
         break;
       case "landscape":
-        console.log(type, "should be landscape-primary or landscape-secondary");
+        console.log(`${type} should be landscape-primary or landscape-secondary`);
         break;
       default:
-        console.log(type, orientation, "Expected orientation to change");
+        console.log(`${type} & ${orientation}: Expected orientation to change`);
         break;
     }
   }

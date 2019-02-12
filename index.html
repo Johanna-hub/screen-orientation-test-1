@@ -14,7 +14,9 @@
       <p>
         Testing viewport angle change
       </p> 
-      <button onclick="orderCheck()">Click</button>
+      <button onclick="orderCheck()">Event before Promise</button>
       <button onclick=document.documentElement.requestFullscreen()>Full screen</button>
+      <button onclick="invalidLockCheck()">Invalid lock input</button>
+      <button onclick="emptyLockCheck()">Empty lock</button>
   </body>
 </html>

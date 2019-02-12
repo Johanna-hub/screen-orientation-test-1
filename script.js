@@ -70,14 +70,14 @@ function unlock() {
 
 function voidLock() {
   const value = screen.orientation.unlock();
-  console.log(value, "should be undefined");
+  console.log(`${value} should be undefined`);
 }
 
 // "Test that screen.orientation.lock returns a promise which will be fulfilled with a void value."
 async function lockPromise() {
   await document.documentElement.requestFullscreen();
   const value = await screen.orientation.lock("any");
-  console.log(value, "should be undefined");
+  console.log(`${value} should be undefined`);
 }
 
 // "Test that screen.orientation.lock returns a pending promise
@@ -118,16 +118,17 @@ async function lockTest() {
   screen.orientation.unlock();
 }
 
-promise_test(async t => {
-  const preType = screen.orientation.type;
-  const isPortrait = preType.includes("portrait");
-  const newType = `${isPortrait ? "landscape" : "portrait"}-primary`;
-  const p = screen.orientation.lock(newType);
-  assert_equals(
-    screen.orientation.type,
-    preType,
-    "Must not change orientation until next spin of event loop"
-  );
-  await p;
-  assert_equals(screen.orientation.type, newType);
-}, "Test that screen.orientation.lock() is actually async");
+// promise_test(async t => {
+//   const preType = screen.orientation.type;
+//   const isPortrait = preType.includes("portrait");
+//   const newType = `${isPortrait ? "landscape" : "portrait"}-primary`;
+//   const p = screen.orientation.lock(newType);
+//   assert_equals(
+//     screen.orientation.type,
+//     preType,
+//     "Must not change orientation until next spin of event loop"
+//   );
+//   await p;
+//   assert_equals(screen.orientation.type, newType);
+// }, "Test that screen.orientation.lock() is actually async");
+

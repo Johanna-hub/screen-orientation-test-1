@@ -42,7 +42,7 @@ const promisesToReject = invalid_lock_types.map(type =>
 );
 
 async function invalidLockCheck() {
-  document.documentElement.requestFullscreen();
+  // document.documentElement.requestFullscreen();
   try {
     await Promise.all(promisesToReject);
   } catch (err) {
@@ -51,7 +51,7 @@ async function invalidLockCheck() {
 }
 
 async function emptyLockCheck() {
-  document.documentElement.requestFullscreen();
+  // document.documentElement.requestFullscreen();
   try {
     await screen.orientation.lock();
   } catch (err) {

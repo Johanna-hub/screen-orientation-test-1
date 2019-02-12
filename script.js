@@ -96,23 +96,33 @@ async function lockTest() {
   for (const orientation of orientations) {
     const promiseToChange = screen.orientation.lock(orientation);
     console.log(`instance of promise?: ${promiseToChange instanceof Promise}`);
-    await promiseToChange;
-    const type = screen.orientation.type;
-    switch (orientation) {
-      case "any":
-        break;
-      case "natural":
-        console.log(`${type}should be portrait-primary or landscape-primary`);
-        break;
-      case "portrait":
-        console.log(`${type} should be portrait-primary or portrait-secondary`);
-        break;
-      case "landscape":
-        console.log(`${type} should be landscape-primary or landscape-secondary`);
-        break;
-      default:
-        console.log(`${type} & ${orientation}: Expected orientation to change`);
-        break;
+    try {
+      await promiseToChange;
+      const type = screen.orientation.type;
+      switch (orientation) {
+        case "any":
+          break;
+        case "natural":
+          console.log(`${type}should be portrait-primary or landscape-primary`);
+          break;
+        case "portrait":
+          console.log(
+            `${type} should be portrait-primary or portrait-secondary`
+          );
+          break;
+        case "landscape":
+          console.log(
+            `${type} should be landscape-primary or landscape-secondary`
+          );
+          break;
+        default:
+          console.log(
+            `${type} & ${orientation}: Expected orientation to change`
+          );
+          break;
+      }
+    } catch (err) {
+      console.log(`err: ${err}`);
     }
   }
   screen.orientation.unlock();
@@ -131,4 +141,3 @@ async function lockTest() {
 //   await p;
 //   assert_equals(screen.orientation.type, newType);
 // }, "Test that screen.orientation.lock() is actually async");
-

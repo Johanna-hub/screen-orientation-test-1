@@ -137,14 +137,15 @@ async function asyncTest() {
   console.log(`${screen.orientation.type} is current type`);
   console.log(`${isPortrait}: is portrait?`);
   console.log(`${newType} is new type`);
-  const p = screen.orientation.lock(newType);
+  console.log(`p removed`);
+  // const p = screen.orientation.lock(newType);
   console.log(
     `${
       screen.orientation.type
     } + ${preType}: should be same and must not change orientation until next spin of event loop`
   );
   await document.documentElement.requestFullscreen();
-  await p;
+  await screen.orientation.lock(newType);
   console.log(
     `${
       screen.orientation.type

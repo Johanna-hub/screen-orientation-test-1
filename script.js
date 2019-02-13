@@ -184,7 +184,7 @@ async function changeFired() {
   for (const orientation of orientations) {
     screen.orientation.addEventListener("change", log(orientation));
     await screen.orientation.lock(orientation);
+    screen.orientation.unlock();
+    return document.exitFullscreen();
   }
-  screen.orientation.unlock();
-  return document.exitFullscreen();
 }

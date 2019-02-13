@@ -140,6 +140,7 @@ async function asyncTest() {
       screen.orientation.type
     } + ${preType}: should be same and must not change orientation until next spin of event loop`
   );
+  document.documentElement.requestFullscreen()
   await p;
   console.log(
     `${screen.orientation.type} + ${newType} lock should be async and both different to previous`

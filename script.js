@@ -134,6 +134,7 @@ async function asyncTest() {
   const preType = screen.orientation.type;
   const isPortrait = preType.includes("portrait");
   const newType = `${isPortrait ? "landscape" : "portrait"}-primary`;
+  console.log(`${newType} is new type`)
   const p = screen.orientation.lock(newType);
   console.log(
     `${
@@ -145,7 +146,7 @@ async function asyncTest() {
   console.log(
     `${
       screen.orientation.type
-    } + ${newType} lock should be async and both different to previous`
+    } + ${newType} lock should be async, both should be the same and different to previous`
   );
 }
 

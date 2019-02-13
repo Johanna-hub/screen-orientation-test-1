@@ -181,9 +181,8 @@ async function changeFired() {
       `${screen.orientation.type} + ${orientation}: should be the same`
     );
   }
-
-  screen.orientation.addEventListener("change", log);
   for (const orientation of orientations) {
+    screen.orientation.addEventListener("change", log);
     await screen.orientation.lock(orientation);
   }
   screen.orientation.unlock();

@@ -176,13 +176,13 @@ async function changeFired() {
     orientations = orientations.reverse();
   }
 
-  function log() {
+  function log(orientation) {
     console.log(
       `${screen.orientation.type} + ${orientation}: should be the same`
     );
   }
   for (const orientation of orientations) {
-    screen.orientation.addEventListener("change", log);
+    screen.orientation.addEventListener("change", log(orientation));
     await screen.orientation.lock(orientation);
   }
   screen.orientation.unlock();

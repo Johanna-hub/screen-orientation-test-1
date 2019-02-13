@@ -149,3 +149,42 @@ async function asyncTest() {
     } + ${newType} lock should be async, both should be the same and different to previous`
   );
 }
+
+// onchange event
+//"Test that orientationchange event is not fired when the orientation does not change."
+
+async function changeEvent() {
+  await document.documentElement.requestFullscreen();
+  const type = screen.orientation.type;
+  console.log(`${screen.orientation.onchange}: screen.orientation.onchange`);
+  await screen.orientation.lock(type);
+  console.log(`${screen.orientation.type} + ${type} should be same`);
+  return document.exitFullscreen();
+}
+
+//"Test that orientationchange event is fired when the orientation changes."
+
+async function changeFired() {
+  await document.documentElement.requestFullscreen();
+  let orientations = [
+    "portrait-primary",
+    "portrait-secondary",
+    "landscape-primary",
+    "landscape-secondary"
+  ];
+  if (screen.orientation.type.includes("portrait")) {
+    orientations = orientations.reverse();
+  }
+
+  function log() {
+    console.log(
+      `${screen.orientation.type} + ${orientation}: should be the same`
+    );
+  }
+
+  screen.orientation.addEventListener("change", log);
+  for (const orientation of orientations) {
+    await screen.orientation.lock(orientation);
+  }
+  screen.orientation.unlock();
+}

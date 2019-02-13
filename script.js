@@ -135,8 +135,8 @@ async function asyncTest() {
   const preType = screen.orientation.type;
   const isPortrait = preType.includes("portrait");
   const newType = `${isPortrait ? "landscape" : "portrait"}-primary`;
-  console.log(`${p}: what is p`);
   const p = screen.orientation.lock(newType);
+  console.log(`${p}: what is p`);
   console.log(
     `${
       screen.orientation.type

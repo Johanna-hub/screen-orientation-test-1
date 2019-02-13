@@ -95,7 +95,7 @@ async function lockTest() {
   await document.documentElement.requestFullscreen();
   for (const orientation of orientations) {
     const promiseToChange = screen.orientation.lock(orientation);
-    console.log(`instance of promise?: ${promiseToChange instanceof Promise}`);
+    // console.log(`instance of promise?: ${promiseToChange instanceof Promise}`);
     try {
       await promiseToChange;
       const type = screen.orientation.type;
@@ -128,16 +128,20 @@ async function lockTest() {
   screen.orientation.unlock();
 }
 
-// promise_test(async t => {
-//   const preType = screen.orientation.type;
-//   const isPortrait = preType.includes("portrait");
-//   const newType = `${isPortrait ? "landscape" : "portrait"}-primary`;
-//   const p = screen.orientation.lock(newType);
-//   assert_equals(
-//     screen.orientation.type,
-//     preType,
-//     "Must not change orientation until next spin of event loop"
-//   );
-//   await p;
-//   assert_equals(screen.orientation.type, newType);
-// }, "Test that screen.orientation.lock() is actually async");
+//check that lock is async
+
+async function asyncTest() {
+  const preType = screen.orientation.type;
+  const isPortrait = preType.includes("portrait");
+  const newType = `${isPortrait ? "landscape" : "portrait"}-primary`;
+  const p = screen.orientation.lock(newType);
+  console.log(
+    `${
+      screen.orientation.type
+    } + ${preType}: should be same and must not change orientation until next spin of event loop`
+  );
+  await p;
+  console.log(
+    `${screen.orientation.type} + ${newType} lock should be async and both different to previous`
+  );
+}

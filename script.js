@@ -186,4 +186,5 @@ async function changeFired() {
     await screen.orientation.lock(orientation);
   }
   screen.orientation.unlock();
+  return document.exitFullscreen();
 }

@@ -134,7 +134,9 @@ async function asyncTest() {
   const preType = screen.orientation.type;
   const isPortrait = preType.includes("portrait");
   const newType = `${isPortrait ? "landscape" : "portrait"}-primary`;
-  console.log(`${newType} is new type`)
+  console.log(`${screen.orientation.type} is current type`);
+  console.log(`${isPortrait}: is portrait?`);
+  console.log(`${newType} is new type`);
   const p = screen.orientation.lock(newType);
   console.log(
     `${
@@ -142,12 +144,10 @@ async function asyncTest() {
     } + ${preType}: should be same and must not change orientation until next spin of event loop`
   );
   await document.documentElement.requestFullscreen();
-  await screen.orientation.lock("landscape-primary");
+  await p;
   console.log(
     `${
       screen.orientation.type
     } + ${newType} lock should be async, both should be the same and different to previous`
   );
 }
-
-

@@ -165,13 +165,13 @@ async function changeEvent() {
 //"Test that orientationchange event is fired when the orientation changes."
 
 async function changeFired() {
-  await document.documentElement.requestFullscreen();
   let orientations = [
     "portrait-primary",
     "portrait-secondary",
     "landscape-primary",
     "landscape-secondary"
   ];
+  console.log(`changes made`)
   if (screen.orientation.type.includes("portrait")) {
     orientations = orientations.reverse();
   }
@@ -182,6 +182,7 @@ async function changeFired() {
     );
   }
   for (const orientation of orientations) {
+    await document.documentElement.requestFullscreen();
     screen.orientation.addEventListener("change", log(orientation));
     await screen.orientation.lock(orientation);
     screen.orientation.unlock();

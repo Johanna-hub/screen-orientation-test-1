@@ -141,7 +141,7 @@ async function asyncTest() {
     } + ${preType}: should be same and must not change orientation until next spin of event loop`
   );
   await document.documentElement.requestFullscreen();
-  await p;
+  await screen.orientation.lock("landscape-primary");
   console.log(
     `${
       screen.orientation.type
@@ -149,7 +149,4 @@ async function asyncTest() {
   );
 }
 
-async function simpleLock() {
-  await document.documentElement.requestFullscreen();
-  await screen.orientation.lock("landscape-primary");
-}
+

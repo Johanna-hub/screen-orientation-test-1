@@ -131,21 +131,18 @@ async function lockTest() {
 //check that lock is async
 
 async function asyncTest() {
+  await document.documentElement.requestFullscreen();
   const preType = screen.orientation.type;
   const isPortrait = preType.includes("portrait");
   const newType = `${isPortrait ? "landscape" : "portrait"}-primary`;
-  console.log(`${screen.orientation.type} is current type`);
-  console.log(`${isPortrait}: is portrait?`);
-  console.log(`${newType} is new type`);
-  console.log(`p removed`);
-  // const p = screen.orientation.lock(newType);
+  console.log(`${p}: what is p`);
+  const p = screen.orientation.lock(newType);
   console.log(
     `${
       screen.orientation.type
     } + ${preType}: should be same and must not change orientation until next spin of event loop`
   );
-  await document.documentElement.requestFullscreen();
-  await screen.orientation.lock(newType);
+  await p;
   console.log(
     `${
       screen.orientation.type

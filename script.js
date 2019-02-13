@@ -148,3 +148,8 @@ async function asyncTest() {
     } + ${newType} lock should be async and both different to previous`
   );
 }
+
+async function simpleLock() {
+  await document.documentElement.requestFullscreen();
+  await screen.orientation.lock("landscape-primary");
+}

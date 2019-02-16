@@ -268,7 +268,7 @@ async function angleTest3() {
     await screen.orientation.lock("landscape-primary");
     const primary2angle = screen.orientation.angle;
     console.log(`${screen.orientation.angle} should be 90 or 270`);
-    const secondary2angle = `${primary2angle} === 90 ? 270 : 90`;
+    const secondary2angle = (primary2angle === 90) ? 270 : 90;
     await screen.orientation.lock("landscape-secondary");
     console.log(`${screen.orientation.angle} should be ${secondary2angle}`);
   }

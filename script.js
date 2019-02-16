@@ -237,13 +237,13 @@ async function angleTest() {
 
 async function angleTest2() {
   await document.documentElement.requestFullscreen();
-  const primaryOrientations = ["portrait-primary, landscape-primary"];
+  const primaryOrientations = ["portrait-primary", "landscape-primary"];
   for (const orientation of primaryOrientations) {
     await screen.orientation.lock(orientation);
     const angle = screen.orientation.angle;
     console.log(`${angle} should be 0, 90 or 270`);
   }
-  const secondaryOrientations = ["portrait-secondary, landscape-secondary"];
+  const secondaryOrientations = ["portrait-secondary", "landscape-secondary"];
   for (const orientation of secondaryOrientations) {
     await screen.orientation.lock(orientation);
     const angle = screen.orientation.angle;

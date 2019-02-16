@@ -249,4 +249,29 @@ async function angleTest2() {
     const angle = screen.orientation.angle;
     console.log(`${angle} should be 180, 90 or 270`);
   }
+  screen.orientation.unlock();
+  return document.exitFullscreen();
+}
+
+async function angleTest3() {
+  await document.documentElement.requestFullscreen();
+  let primaryOrientation;
+  await screen.orientation.lock("portrait-primary");
+  if (screen.orientation.angle === 0) {
+    primaryOrientation = "portrait-primary";
+  } else {
+    primaryOrientation = "landscape-primary";
+  }
+  if (primaryOrientation === "portrait-primary") {
+    await screen.orientation.lock("portrait-secondary");
+    console.log(`${screen.orientation.angle} should be 180`);
+    await screen.orientation.lock("landscape-primary");
+    const primary2angle = screen.orientation.angle;
+    console.log(`${screen.orientation.angle} should be 90 or 270`);
+    const secondary2angle = `${primary2angle} === 90 ? 270 : 90`;
+    await screen.orientation.lock("landscape-secondary");
+    console.log(`${screen.orientation.angle} should be ${secondary2angle}`);
+  }
+  screen.orientation.unlock();
+  return document.exitFullscreen();
 }

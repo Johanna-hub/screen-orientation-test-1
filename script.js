@@ -204,9 +204,14 @@ async function notSupported() {
 // Check the angle values
 
 async function angleTest() {
+  let angle;
+  function updateAngle() {
+    angle = screen.orientation.angle;
+  }
   await document.documentElement.requestFullscreen();
   await screen.orientation.lock("portrait-primary");
-  console.log(`${screen.orientation.angle} should be 0, 90 or 270`);
+  updateAngle();
+  console.log(`${angle} should be 0, 90 or 270`);
   await screen.orientation.lock("portrait-secondary");
   console.log(`${screen.orientation.angle} should be 180, 90 or 270`);
   await screen.orientation.lock("landscape-primary");
@@ -215,9 +220,33 @@ async function angleTest() {
   console.log(`${screen.orientation.angle} should be 180, 90 or 270`);
   screen.orientation.unlock();
   if (screen.width > screen.height) {
-    console.log(`${screen.orientation.type} should be landscape-primary or landscape-secondary`);
+    console.log(
+      `${
+        screen.orientation.type
+      } should be landscape-primary or landscape-secondary`
+    );
   } else if (screen.width < screen.height) {
-    console.log(`${screen.orientation.type} should be portrait-primary or portrait-secondary`);
+    console.log(
+      `${
+        screen.orientation.type
+      } should be portrait-primary or portrait-secondary`
+    );
   }
   return document.exitFullscreen();
+}
+
+async function angleTest2() {
+  await document.documentElement.requestFullscreen();
+  const primaryOrientations = ["portrait-primary, landscape-primary"];
+  for (const orientation of primaryOrientations) {
+    await screen.orientation.lock(orientation);
+    const angle = screen.orientation.angle;
+    console.log(`${angle} should be 0, 90 or 270`);
+  }
+  const secondaryOrientations = ["portrait-secondary, landscape-secondary"];
+  for (const orientation of secondaryOrientations) {
+    await screen.orientation.lock(orientation);
+    const angle = screen.orientation.angle;
+    console.log(`${angle} should be 180, 90 or 270`);
+  }
 }

@@ -267,11 +267,120 @@ async function angleTest3() {
     console.log(`${screen.orientation.angle} should be 180`);
     await screen.orientation.lock("landscape-primary");
     const primary2angle = screen.orientation.angle;
-    console.log(`${screen.orientation.angle} should be 90 or 270`);
-    const secondary2angle = (primary2angle === 90) ? 270 : 90;
+    console.log(`${primary2angle} should be 90 or 270`);
+    const secondary2angle = primary2angle === 90 ? 270 : 90;
     await screen.orientation.lock("landscape-secondary");
     console.log(`${screen.orientation.angle} should be ${secondary2angle}`);
   }
+  if (primaryOrientation === "landscape-primary") {
+    await screen.orientation.lock("landscape-secondary");
+    console.log(`${screen.orientation.angle} should be 180`);
+    await screen.orientation.lock("portrait-primary");
+    const primary2angle = screen.orientation.angle;
+    console.log(`${primary2angle} should be 90 or 270`);
+    const secondary2angle = primary2angle === 90 ? 270 : 90;
+    await screen.orientation.lock("portrait-secondary");
+    console.log(`${screen.orientation.angle} should be ${secondary2angle}`);
+  }
+  screen.orientation.unlock();
+  return document.exitFullscreen();
+}
+
+//refactored test
+
+async function angleTest4() {
+  await document.documentElement.requestFullscreen();
+
+  async function lockToSecondaryOrientation1(primaryOrientation1) {
+    const secondaryOrientation1 =
+      primaryOrientation1 === "portrait-primary"
+        ? "portrait-secondary"
+        : "landscape-secondary";
+    await screen.orientation.lock(secondaryOrientation1);
+    console.log(
+      `Secondary orientation 1 angle is ${
+        screen.orientation.angle
+      }, it should be 180`
+    );
+  }
+
+  async function lockToPrimaryOrientation2(primaryOrientation1) {
+    const primaryOrientation2 =
+      primaryOrientation1 === "portrait-primary"
+        ? "landscape-primary"
+        : "portrait-primary";
+    await screen.orientation.lock(primaryOrientation2);
+    console.log(
+      `Primary orientation 2 angle is ${
+        screen.orientation.angle
+      }, it should be 90 or 270`
+    );
+  }
+
+  async function lockToSecondaryOrientation2(primaryOrientation1) {
+    const primaryOrientation2Angle = screen.orientation.angle;
+    const secondaryOrientation2Angle =
+      primaryOrientation2Angle === 90 ? 270 : 90;
+    const secondaryOrientation2 =
+      primaryOrientation1 === "portrait-primary"
+        ? "landscape-secondary"
+        : "portrait-secondary";
+    await screen.orientation.lock(secondaryOrientation2);
+    console.log(
+      `Secondary orientation 2 angle is ${
+        screen.orientation.angle
+      }, it should be ${secondaryOrientation2Angle}`
+    );
+  }
+
+  await screen.orientation.lock("portrait-primary");
+  const primaryOrientation1 =
+    screen.orientation.angle === 0
+      ? screen.orientation.type
+      : "landscape-primary";
+  await lockToSecondaryOrientation1(primaryOrientation1);
+  await lockToPrimaryOrientation2(primaryOrientation1);
+  await lockToSecondaryOrientation2(primaryOrientation1);
+  screen.orientation.unlock();
+  return document.exitFullscreen();
+}
+
+//re-refactored test
+async function angleTest5() {
+  await document.documentElement.requestFullscreen();
+  await screen.orientation.lock("portrait-primary");
+  const orientations =
+    screen.orientation.angle === 0
+      ? {
+          secondaryOrientation1: "portrait-secondary",
+          primaryOrientation2: "landscape-primary",
+          secondaryOrientation2: "landscape-secondary"
+        }
+      : {
+          secondaryOrientation1: "landscape-secondary",
+          primaryOrientation2: "portrait-primary",
+          secondaryOrientation2: "portrait-secondary"
+        };
+  await screen.orientation.lock(orientations.secondaryOrientation1);
+  console.log(
+    `Secondary orientation 1 angle is ${
+      screen.orientation.angle
+    }, it should be 180`
+  );
+  await screen.orientation.lock(orientations.primaryOrientation2);
+  console.log(
+    `Primary orientation 2 angle is ${
+      screen.orientation.angle
+    }, it should be 90 or 270`
+  );
+  const primaryOrientation2Angle = screen.orientation.angle;
+  const secondaryOrientation2Angle = primaryOrientation2Angle === 90 ? 270 : 90;
+  await screen.orientation.lock(orientations.secondaryOrientation2);
+  console.log(
+    `Secondary orientation 2 angle is ${
+      screen.orientation.angle
+    }, it should be ${secondaryOrientation2Angle}`
+  );
   screen.orientation.unlock();
   return document.exitFullscreen();
 }

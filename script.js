@@ -385,5 +385,7 @@ async function angleTest5() {
   return document.exitFullscreen();
 }
 
-
+function navigation() {
+  window.location.href += "#test"
+}
 

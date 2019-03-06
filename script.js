@@ -386,9 +386,22 @@ async function angleTest5() {
 }
 
 function navigation() {
-  window.location.href += "#test"
+  window.location.href += "#test";
 }
 
 function gitHub() {
   window.location.href = "https://github.com/";
+}
+
+async function fragment() {
+  const fragment = document.createElement("p");
+  fragment.id = "fragment";
+  document.body.appendChild(fragment);
+  await new Promise(r => {
+    if (fragment.contentDocument.readyState === "complete") {
+      return r(); // it's loaded
+    }
+    fragment.onload = r;
+  });
+  window.location.href += "#fragment";
 }

@@ -389,3 +389,6 @@ function navigation() {
   window.location.href += "#test"
 }
 
+function gitHub() {
+  window.location.href = "https://github.com/";
+}

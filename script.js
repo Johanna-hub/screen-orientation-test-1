@@ -412,7 +412,7 @@ async function lockOnChange() {
   try {
     await pMustReject();
   } catch (err) {
-    console.log(err);
+    console.log(`this is the ${err}`);
   }
   await pMustResolve();
 }

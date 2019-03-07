@@ -393,15 +393,26 @@ function gitHub() {
   window.location.href = "https://github.com/";
 }
 
-async function fragment() {
+function fragment() {
   const fragment = document.createElement("p");
   fragment.id = "fragment";
   document.body.appendChild(fragment);
-  await new Promise(r => {
-    if (fragment.contentDocument.readyState === "complete") {
-      return r(); // it's loaded
-    }
-    fragment.onload = r;
-  });
   window.location.href += "#fragment";
+}
+
+async function lockOnChange() {
+  await document.documentElement.requestFullscreen();
+  const pMustReject = screen.orientation.lock("landscape");
+  const pMustResolve = new Promise(r => {
+    screen.orientation.onchange = async () => {
+      await orientation.lock("any");
+      r();
+    };
+  });
+  try {
+    await pMustReject();
+  } catch (err) {
+    console.log(err);
+  }
+  await pMustResolve();
 }

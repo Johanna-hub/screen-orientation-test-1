@@ -405,7 +405,24 @@ async function lockOnChange() {
   const pMustReject = screen.orientation.lock("landscape");
   const pMustResolve = new Promise(r => {
     screen.orientation.onchange = async () => {
-      await orientation.lock("any");
+      await screen.orientation.lock("any");
+      r();
+    };
+  });
+  try {
+    await pMustReject();
+  } catch (err) {
+    console.log(`this is the ${err}`);
+  }
+  await pMustResolve();
+}
+
+async function unlockOnChange() {
+  await document.documentElement.requestFullscreen();
+  const pMustReject = screen.orientation.lock("landscape");
+  const pMustResolve = new Promise(r => {
+    screen.orientation.onchange = async () => {
+      await screen.orientation.unlock();
       r();
     };
   });

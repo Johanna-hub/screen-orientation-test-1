@@ -422,7 +422,7 @@ async function unlockOnChange() {
   const pMustReject = screen.orientation.lock("landscape");
   const pMustResolve = new Promise(r => {
     screen.orientation.onchange = async () => {
-      await screen.orientation.unlock();
+      screen.orientation.unlock();
       r();
     };
   });

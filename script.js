@@ -410,11 +410,11 @@ async function lockOnChange() {
     };
   });
   try {
-    await pMustReject();
+    await pMustReject;
   } catch (err) {
     console.log(`this is the ${err}`);
   }
-  await pMustResolve();
+  await pMustResolve;
 }
 
 async function unlockOnChange() {
@@ -427,9 +427,9 @@ async function unlockOnChange() {
     };
   });
   try {
-    await pMustReject();
+    await pMustReject;
   } catch (err) {
     console.log(`this is the ${err}`);
   }
-  await pMustResolve();
+  await pMustResolve;
 }

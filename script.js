@@ -433,3 +433,9 @@ async function unlockOnChange() {
   }
   await pMustResolve;
 }
+
+async function popupWindow() {
+  var popup = window.open("https://github.com","github","width=500,height=300");
+  await popup.document.documentElement.requestFullscreen();
+  popup.contentWindow.screen.orientation.lock("landscape-primary");
+  }

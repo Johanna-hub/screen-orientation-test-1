@@ -435,5 +435,10 @@ async function unlockOnChange() {
 }
 
 async function popupWindow() {
-  window.open("https://github.com", "github","width=500,height=300");
+  const popWindow = window.open("./resources/blank.html", "github","width=500,height=300");
+  popWindow.onload = 
+  function navigation() {
+    popWindow.location.href = "https://github.com";
+  }
+  await popWindow.screen.orientation.lock("landscape-primary");
 }

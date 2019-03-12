@@ -435,10 +435,10 @@ async function unlockOnChange() {
 }
 
 async function popupWindow() {
-  window.open("./resources/blank.html", "test");
+  const popup = window.open("./resources/blank.html", "test");
   // popWindow.onload = 
   // function navigation() {
   //   popWindow.location.href = "https://github.com";
   // }
-  await screen.orientation.lock("landscape");
+  await popup.screen.orientation.lock("landscape");
 }

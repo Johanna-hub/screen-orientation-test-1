@@ -440,5 +440,6 @@ async function popupWindow() {
   // function navigation() {
   //   popWindow.location.href = "https://github.com";
   // }
-  await screen.orientation.lock("landscape");
+  console.log(popup.screen.orientation.type)
+  await popup.screen.orientation.lock("landscape");
 }

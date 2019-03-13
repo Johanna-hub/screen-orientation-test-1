@@ -435,16 +435,15 @@ async function unlockOnChange() {
 }
 
 async function popupWindow() {
-  const popup = window.open("./resources/blank.html", "test");
-  await document.documentElement.requestFullscreen();
-  // popWindow.onload =
+  window.open("./resources/blank.html");
+  // await popup.document.body.requestFullscreen();
+  // popup.onload =
   // function navigation() {
-  //   popWindow.location.href = "https://github.com";
+  //   popup.location.href = "https://github.com";
   // }
-  // console.log(popup.screen.orientation.type);
-  try {
-    await popup.screen.orientation.lock("landscape");
-  } catch (err) {
-    console.log(`this is the ${err}`);
-  }
+  // try {
+  //   await popup.screen.orientation.lock("landscape");
+  // } catch (err) {
+  //   console.log(`this is the ${err}`);
+  // }
 }

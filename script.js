@@ -436,10 +436,14 @@ async function unlockOnChange() {
 
 async function popupWindow() {
   const popup = window.open("./resources/blank.html", "test");
-  // popWindow.onload = 
+  // popWindow.onload =
   // function navigation() {
   //   popWindow.location.href = "https://github.com";
   // }
-  console.log(popup.screen.orientation.type)
-  await popup.screen.orientation.lock("landscape");
+  console.log(popup.screen.orientation.type);
+  try {
+    await popup.screen.orientation.lock("landscape");
+  } catch (err) {
+    console.log(`this is the ${err}`);
+  }
 }
